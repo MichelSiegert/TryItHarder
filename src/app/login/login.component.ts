@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 
 
 @Component({
@@ -12,11 +12,15 @@ export class LoginComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
-    //this.http.get('http://127.0.0.1:8080', //LOCAL
-    this.http.get('/login', //PROD
-    {responseType: 'text'})
-      .subscribe((Response: any) => {
-          console.log(Response)
+//prep body
+    let body = new HttpParams()
+      .append('name','nice');
+
+    this.http.post('/nice',
+      body,
+      {responseType: 'text'})
+      .subscribe((Response: any) =>{
+        console.log(Response)
       })
   }
 
